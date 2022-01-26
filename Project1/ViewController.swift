@@ -23,6 +23,9 @@ class ViewController: UITableViewController {
             }
         }
         print(pictures)
+        
+        title = "Storm Viewer"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
