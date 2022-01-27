@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UITableViewController {
     var pictures = [String]()
+    var sortedPictures = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,8 @@ class ViewController: UITableViewController {
         }
         print(pictures)
         
+        sortedPictures = pictures.sorted()
+        
         title = "Storm Viewer"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -34,7 +37,7 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath)
-        cell.textLabel?.text = pictures[indexPath.row]
+        cell.textLabel?.text = sortedPictures[indexPath.row]
         return cell
     }
     
@@ -42,7 +45,10 @@ class ViewController: UITableViewController {
         // 1: try loading the "Detail" view controller and typecasting it to be DetailViewController
             if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
                 // 2: success! Set its selectedImage property
-                vc.selectedImage = pictures[indexPath.row]
+                vc.selectedImage = sortedPictures[indexPath.row]
+                vc.selectedImageIndex = indexPath.row
+                vc.imagesCount = sortedPictures.count
+                
 
                 // 3: now push it onto the navigation controller
                 navigationController?.pushViewController(vc, animated: true)
